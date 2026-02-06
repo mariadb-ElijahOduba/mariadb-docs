@@ -192,8 +192,11 @@ def build_output(name, desc: str, example: list, path: str):
     return content
 
 def escape_sql(text):
-    # Escape single quotes and convert newlines to \n literal
+    # Escape backslashes first (must be before other escapes that use backslash)
+    text = text.replace("\\", "\\\\")
+    # Escape single quotes
     text = text.replace("'", "''")
+    # Convert newlines to literal \n
     text = text.replace("\n", "\\n")
     return text
 
